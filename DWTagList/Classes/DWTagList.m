@@ -179,7 +179,11 @@
         [tagView setTextShadowOffset:self.textShadowOffset];
         [tagView setDelegate:self];
 
-        [self addSubview:tagView];
+        if ([self.tagDelegate respondsToSelector:@selector(tagViewForTagView:)]) {
+            [self addSubview:[self.tagDelegate tagViewForTagView:tagView]];
+        } else {
+            [self addSubview:tagView];
+        }
 
         if (!_viewOnly) {
             [tagView.button addTarget:self action:@selector(touchDownInside:) forControlEvents:UIControlEventTouchDown];

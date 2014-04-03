@@ -73,6 +73,7 @@
 
 - (void)selectedTag:(NSString *)tagName;
 - (void)tagListTagsChanged:(DWTagList *)tagList;
+- (DWTagView *)tagViewForTagView:(DWTagView *)tagView;
 
 @end
 
