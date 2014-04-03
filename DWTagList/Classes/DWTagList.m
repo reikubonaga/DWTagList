@@ -205,7 +205,11 @@
 - (void)touchDownInside:(id)sender
 {
     UIButton *button = (UIButton*)sender;
-    [[button superview] setBackgroundColor:self.highlightedBackgroundColor];
+    DWTagView *tagView = (DWTagView *)[button superview];
+    [tagView setBackgroundColor:self.highlightedBackgroundColor];
+    if ([self.tagDelegate respondsToSelector:@selector(highlightedTagViewForHighlightedTagView:)]) {
+        [self.tagDelegate highlightedTagViewForHighlightedTagView:tagView];
+    }
 }
 
 - (void)touchUpInside:(id)sender
@@ -213,6 +217,9 @@
     UIButton *button = (UIButton*)sender;
     DWTagView *tagView = (DWTagView *)[button superview];
     [tagView setBackgroundColor:[self getBackgroundColor]];
+    if ([self.tagDelegate respondsToSelector:@selector(tagViewForTagView:)]) {
+        tagView = [self.tagDelegate tagViewForTagView:tagView];
+    }
 
     if ([self.tagDelegate respondsToSelector:@selector(selectedTag:)]) {
         [self.tagDelegate selectedTag:tagView.label.text];
