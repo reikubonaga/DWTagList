@@ -71,10 +71,11 @@
 
 @optional
 
-- (void)selectedTag:(NSString *)tagName;
 - (void)tagListTagsChanged:(DWTagList *)tagList;
-- (DWTagView *)tagViewForTagView:(DWTagView *)tagView;
-- (DWTagView *)highlightedTagViewForHighlightedTagView:(DWTagView *)tagView;
+
+- (void)tagList:(DWTagList *)tagList willDisplayTagView:(DWTagView *)tagView withIndex:(NSInteger)index;
+- (void)tagList:(DWTagList *)tagList willTouchDownInsideAtTagView:(DWTagView *)tagView withTagName:(NSString *)tagName;
+- (void)tagList:(DWTagList *)tagList willTouchUpInsideAtTagView:(DWTagView *)tagView withTagName:(NSString *)tagName;
 
 @end
 

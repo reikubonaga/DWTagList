@@ -178,11 +178,11 @@
         [tagView setTextShadowOffset:self.textShadowOffset];
         [tagView setDelegate:self];
 
-        if ([self.tagDelegate respondsToSelector:@selector(tagViewForTagView:)]) {
-            [self addSubview:[self.tagDelegate tagViewForTagView:tagView]];
-        } else {
-            [self addSubview:tagView];
+        if ([self.tagDelegate respondsToSelector:@selector(tagList:willDisplayTagView:withIndex:)]) {
+            [self.tagDelegate tagList:self willDisplayTagView:tagView withIndex:idx];
         }
+
+        [self addSubview:tagView];
 
         if (!_viewOnly) {
             [tagView.button addTarget:self action:@selector(touchDownInside:) forControlEvents:UIControlEventTouchDown];
@@ -206,8 +206,8 @@
     UIButton *button = (UIButton*)sender;
     DWTagView *tagView = (DWTagView *)[button superview];
     [tagView setBackgroundColor:self.highlightedBackgroundColor];
-    if ([self.tagDelegate respondsToSelector:@selector(highlightedTagViewForHighlightedTagView:)]) {
-        [self.tagDelegate highlightedTagViewForHighlightedTagView:tagView];
+    if ([self.tagDelegate respondsToSelector:@selector(tagList:willTouchDownInsideAtTagView:withTagName:)]) {
+        [self.tagDelegate tagList:self willTouchDownInsideAtTagView:tagView withTagName:tagView.label.text];
     }
 }
 
@@ -216,12 +216,9 @@
     UIButton *button = (UIButton*)sender;
     DWTagView *tagView = (DWTagView *)[button superview];
     [tagView setBackgroundColor:[self getBackgroundColor]];
-    if ([self.tagDelegate respondsToSelector:@selector(tagViewForTagView:)]) {
-        tagView = [self.tagDelegate tagViewForTagView:tagView];
-    }
 
-    if ([self.tagDelegate respondsToSelector:@selector(selectedTag:)]) {
-        [self.tagDelegate selectedTag:tagView.label.text];
+    if ([self.tagDelegate respondsToSelector:@selector(tagList:willTouchUpInsideAtTagView:withTagName:)]) {
+        [self.tagDelegate tagList:self willTouchUpInsideAtTagView:tagView withTagName:tagView.label.text];
     }
 
     if (self.showTagMenu) {
