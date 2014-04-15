@@ -139,14 +139,7 @@
     __block BOOL gotPreviousFrame = NO;
 
     [textArray enumerateObjectsUsingBlock:^(id text, NSUInteger idx, BOOL *stop) {
-        DWTagView *tagView;
-        if (tagViews.count > 0) {
-            tagView = [tagViews lastObject];
-            [tagViews removeLastObject];
-        }
-        else {
-            tagView = [[DWTagView alloc] init];
-        }
+        DWTagView *tagView = [[DWTagView alloc] init];
 
         [tagView updateWithString:text
                              font:self.font
