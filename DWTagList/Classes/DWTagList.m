@@ -135,10 +135,10 @@
         [subview removeFromSuperview];
     }
 
-    CGRect previousFrame = CGRectZero;
-    BOOL gotPreviousFrame = NO;
+    __block CGRect previousFrame = CGRectZero;
+    __block BOOL gotPreviousFrame = NO;
 
-    for (id text in textArray) {
+    [textArray enumerateObjectsUsingBlock:^(id text, NSUInteger idx, BOOL *stop) {
         DWTagView *tagView;
         if (tagViews.count > 0) {
             tagView = [tagViews lastObject];
@@ -147,7 +147,6 @@
         else {
             tagView = [[DWTagView alloc] init];
         }
-
 
         [tagView updateWithString:text
                              font:self.font
@@ -191,7 +190,7 @@
             [tagView.button addTarget:self action:@selector(touchDragExit:) forControlEvents:UIControlEventTouchDragExit];
             [tagView.button addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
         }
-    }
+    }];
 
     sizeFit = CGSizeMake(self.frame.size.width, previousFrame.origin.y + previousFrame.size.height + self.bottomMargin + 1.0f);
     self.contentSize = sizeFit;
