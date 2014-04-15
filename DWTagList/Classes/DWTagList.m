@@ -206,8 +206,8 @@
     UIButton *button = (UIButton*)sender;
     DWTagView *tagView = (DWTagView *)[button superview];
     [tagView setBackgroundColor:self.highlightedBackgroundColor];
-    if ([self.tagDelegate respondsToSelector:@selector(tagList:willTouchDownInsideAtTagView:withTagName:)]) {
-        [self.tagDelegate tagList:self willTouchDownInsideAtTagView:tagView withTagName:tagView.label.text];
+    if ([self.tagDelegate respondsToSelector:@selector(tagList:touchDownInsideAtTagView:withTagName:)]) {
+        [self.tagDelegate tagList:self touchDownInsideAtTagView:tagView withTagName:tagView.label.text];
     }
 }
 
@@ -217,8 +217,8 @@
     DWTagView *tagView = (DWTagView *)[button superview];
     [tagView setBackgroundColor:[self getBackgroundColor]];
 
-    if ([self.tagDelegate respondsToSelector:@selector(tagList:willTouchUpInsideAtTagView:withTagName:)]) {
-        [self.tagDelegate tagList:self willTouchUpInsideAtTagView:tagView withTagName:tagView.label.text];
+    if ([self.tagDelegate respondsToSelector:@selector(tagList:touchUpInsideAtTagView:withTagName:)]) {
+        [self.tagDelegate tagList:self touchUpInsideAtTagView:tagView withTagName:tagView.label.text];
     }
 
     if (self.showTagMenu) {

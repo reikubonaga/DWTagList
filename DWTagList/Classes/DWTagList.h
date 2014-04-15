@@ -74,8 +74,8 @@
 - (void)tagListTagsChanged:(DWTagList *)tagList;
 
 - (void)tagList:(DWTagList *)tagList willDisplayTagView:(DWTagView *)tagView withIndex:(NSInteger)index;
-- (void)tagList:(DWTagList *)tagList willTouchDownInsideAtTagView:(DWTagView *)tagView withTagName:(NSString *)tagName;
-- (void)tagList:(DWTagList *)tagList willTouchUpInsideAtTagView:(DWTagView *)tagView withTagName:(NSString *)tagName;
+- (void)tagList:(DWTagList *)tagList touchDownInsideAtTagView:(DWTagView *)tagView withTagName:(NSString *)tagName;
+- (void)tagList:(DWTagList *)tagList touchUpInsideAtTagView:(DWTagView *)tagView withTagName:(NSString *)tagName;
 
 @end
 
