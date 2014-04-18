@@ -20,7 +20,6 @@
 #define BORDER_WIDTH 1.0f
 #define HIGHLIGHTED_BACKGROUND_COLOR [UIColor colorWithRed:0.40 green:0.80 blue:1.00 alpha:0.5]
 #define DEFAULT_AUTOMATIC_RESIZE NO
-#define DEFAULT_SHOW_TAG_MENU NO
 
 @interface DWTagList () <DWTagViewDelegate>
 
@@ -47,7 +46,6 @@
         self.borderColor = BORDER_COLOR;
         self.borderWidth = BORDER_WIDTH;
         self.textColor = TEXT_COLOR;
-        self.showTagMenu = DEFAULT_SHOW_TAG_MENU;
     }
     return self;
 }
@@ -67,7 +65,6 @@
         self.borderColor = BORDER_COLOR;
         self.borderWidth = BORDER_WIDTH;
         self.textColor = TEXT_COLOR;
-        self.showTagMenu = DEFAULT_SHOW_TAG_MENU;
     }
     return self;
 }
@@ -95,14 +92,6 @@
 {
     self.highlightedBackgroundColor = color;
     [self setNeedsLayout];
-}
-
-- (void)setViewOnly:(BOOL)viewOnly
-{
-    if (_viewOnly != viewOnly) {
-        _viewOnly = viewOnly;
-        [self setNeedsLayout];
-    }
 }
 
 - (void)layoutSubviews
@@ -169,13 +158,6 @@
         }
 
         [self addSubview:tagView];
-
-        if (!_viewOnly) {
-            [tagView.button addTarget:self action:@selector(touchDownInside:) forControlEvents:UIControlEventTouchDown];
-            [tagView.button addTarget:self action:@selector(touchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-            [tagView.button addTarget:self action:@selector(touchDragExit:) forControlEvents:UIControlEventTouchDragExit];
-            [tagView.button addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
-        }
     }];
 
     sizeFit = CGSizeMake(self.frame.size.width, previousFrame.origin.y + previousFrame.size.height + self.bottomMargin + 1.0f);
@@ -185,46 +167,6 @@
 - (CGSize)fittedSize
 {
     return sizeFit;
-}
-
-- (void)touchDownInside:(id)sender
-{
-    UIButton *button = (UIButton*)sender;
-    DWTagView *tagView = (DWTagView *)[button superview];
-    [tagView setBackgroundColor:self.highlightedBackgroundColor];
-    if ([self.tagDelegate respondsToSelector:@selector(tagList:touchDownInsideAtTagView:withTagName:)]) {
-        [self.tagDelegate tagList:self touchDownInsideAtTagView:tagView withTagName:tagView.label.text];
-    }
-}
-
-- (void)touchUpInside:(id)sender
-{
-    UIButton *button = (UIButton*)sender;
-    DWTagView *tagView = (DWTagView *)[button superview];
-    [tagView setBackgroundColor:[self getBackgroundColor]];
-
-    if ([self.tagDelegate respondsToSelector:@selector(tagList:touchUpInsideAtTagView:withTagName:)]) {
-        [self.tagDelegate tagList:self touchUpInsideAtTagView:tagView withTagName:tagView.label.text];
-    }
-
-    if (self.showTagMenu) {
-        UIMenuController *menuController = [UIMenuController sharedMenuController];
-        [menuController setTargetRect:tagView.frame inView:self];
-        [menuController setMenuVisible:YES animated:YES];
-        [tagView becomeFirstResponder];
-    }
-}
-
-- (void)touchDragExit:(id)sender
-{
-    UIButton *button = (UIButton*)sender;
-    [[button superview] setBackgroundColor:[self getBackgroundColor]];
-}
-
-- (void)touchDragInside:(id)sender
-{
-    UIButton *button = (UIButton*)sender;
-    [[button superview] setBackgroundColor:[self getBackgroundColor]];
 }
 
 - (UIColor *)getBackgroundColor

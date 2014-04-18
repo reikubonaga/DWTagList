@@ -17,8 +17,6 @@
     UIColor     *lblBackgroundColor;
 }
 
-@property (nonatomic) BOOL viewOnly;
-@property (nonatomic) BOOL showTagMenu;
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic, strong) NSArray *textArray;
 @property (nonatomic, weak) id<DWTagListDelegate> tagDelegate;
@@ -68,10 +66,7 @@
 @optional
 
 - (void)tagListTagsChanged:(DWTagList *)tagList;
-
 - (void)tagList:(DWTagList *)tagList willDisplayTagView:(DWTagView *)tagView withIndex:(NSInteger)index;
-- (void)tagList:(DWTagList *)tagList touchDownInsideAtTagView:(DWTagView *)tagView withTagName:(NSString *)tagName;
-- (void)tagList:(DWTagList *)tagList touchUpInsideAtTagView:(DWTagView *)tagView withTagName:(NSString *)tagName;
 
 @end
 
