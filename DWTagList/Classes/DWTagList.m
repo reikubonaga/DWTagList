@@ -16,8 +16,6 @@
 #define VERTICAL_PADDING_DEFAULT 3.0f
 #define BACKGROUND_COLOR [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1.00]
 #define TEXT_COLOR [UIColor blackColor]
-#define TEXT_SHADOW_COLOR [UIColor whiteColor]
-#define TEXT_SHADOW_OFFSET CGSizeMake(0.0f, 1.0f)
 #define BORDER_COLOR [UIColor lightGrayColor].CGColor
 #define BORDER_WIDTH 1.0f
 #define HIGHLIGHTED_BACKGROUND_COLOR [UIColor colorWithRed:0.40 green:0.80 blue:1.00 alpha:0.5]
@@ -49,8 +47,6 @@
         self.borderColor = BORDER_COLOR;
         self.borderWidth = BORDER_WIDTH;
         self.textColor = TEXT_COLOR;
-        self.textShadowColor = TEXT_SHADOW_COLOR;
-        self.textShadowOffset = TEXT_SHADOW_OFFSET;
         self.showTagMenu = DEFAULT_SHOW_TAG_MENU;
     }
     return self;
@@ -71,8 +67,6 @@
         self.borderColor = BORDER_COLOR;
         self.borderWidth = BORDER_WIDTH;
         self.textColor = TEXT_COLOR;
-        self.textShadowColor = TEXT_SHADOW_COLOR;
-        self.textShadowOffset = TEXT_SHADOW_OFFSET;
         self.showTagMenu = DEFAULT_SHOW_TAG_MENU;
     }
     return self;
@@ -167,8 +161,7 @@
         [tagView setBorderColor:self.borderColor];
         [tagView setBorderWidth:self.borderWidth];
         [tagView setTextColor:self.textColor];
-        [tagView setTextShadowColor:self.textShadowColor];
-        [tagView setTextShadowOffset:self.textShadowOffset];
+
         [tagView setDelegate:self];
 
         if ([self.tagDelegate respondsToSelector:@selector(tagList:willDisplayTagView:withIndex:)]) {
@@ -267,18 +260,6 @@
     [self setNeedsLayout];
 }
 
-- (void)setTextShadowColor:(UIColor *)textShadowColor
-{
-    _textShadowColor = textShadowColor;
-    [self setNeedsLayout];
-}
-
-- (void)setTextShadowOffset:(CGSize)textShadowOffset
-{
-    _textShadowOffset = textShadowOffset;
-    [self setNeedsLayout];
-}
-
 - (void)dealloc
 {
     view = nil;
@@ -309,8 +290,6 @@
     if (self) {
         _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [_label setTextColor:TEXT_COLOR];
-        [_label setShadowColor:TEXT_SHADOW_COLOR];
-        [_label setShadowOffset:TEXT_SHADOW_OFFSET];
         [_label setBackgroundColor:[UIColor clearColor]];
         [_label setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_label];
