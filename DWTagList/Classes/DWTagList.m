@@ -241,7 +241,6 @@
         [_button setFrame:self.frame];
         [self addSubview:_button];
 
-        [self.layer setMasksToBounds:YES];
         [self.layer setCornerRadius:CORNER_RADIUS];
         [self.layer setBorderColor:BORDER_COLOR];
         [self.layer setBorderWidth:BORDER_WIDTH];
