@@ -94,13 +94,6 @@
     [self setNeedsLayout];
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-
-    [self display];
-}
-
 - (void)display
 {
     NSMutableArray *tagViews = [NSMutableArray array];
